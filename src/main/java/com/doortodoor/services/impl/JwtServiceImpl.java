@@ -8,11 +8,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.enterprise.context.ApplicationScoped;
 import javax.servlet.http.Cookie;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
 
+@ApplicationScoped
 public class JwtServiceImpl implements JwtService {
 
     @Override

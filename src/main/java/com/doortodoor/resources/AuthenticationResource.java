@@ -12,21 +12,28 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.ws.rs.*;
 import javax.servlet.http.Cookie;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/auth")
 public class AuthenticationResource {
-
-    @Inject
     JwtService jwtService;
     AuthenticationService authenticationService;
     UserService userService;
 
+    @Inject
+    public AuthenticationResource (final JwtService jwtService, final AuthenticationService authenticationService, final UserService userService) {
+        this.jwtService = jwtService;
+        this.authenticationService = authenticationService;
+        this.userService = userService;
+    }
+
+
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public UserDto login (@Valid final AuthenticationDto authenticationDto, final HttpServletRequest request, final HttpServletResponse response) {
         UserDto user = authenticationService.login(authenticationDto);
         response.addCookie(buildCookie(user.getJwt(), request.getServerName()));
