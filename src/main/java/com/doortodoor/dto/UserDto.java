@@ -6,10 +6,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.UUID;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
-    private String id;
+    private UUID id;
     private String firstName;
     private String lastName;
     private String orgUserName;
@@ -20,20 +21,25 @@ public class UserDto {
 
     @NotNull
     private String phoneNumber;
-    private String organization;
+    private UUID organization;
     private String password;
     private String role;
     @JsonIgnore
     private String jwt;
 
+    private String address;
+    private String city;
+    private String state;
+    private String country;
+
     public UserDto() {
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -61,11 +67,11 @@ public class UserDto {
         this.jwt = jwt;
     }
 
-    public String getOrganization() {
+    public UUID getOrganization() {
         return organization;
     }
 
-    public void setOrganization(String organization) {
+    public void setOrganization(UUID organization) {
         this.organization = organization;
     }
 
@@ -107,6 +113,38 @@ public class UserDto {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
 

@@ -7,17 +7,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
+import java.util.UUID;
 
 @Entity
 @Table(name = "organization")
 public class OrganizationDaoBean {
 
     @Id
-    @GeneratedValue(generator = "id-generator")
-    @GenericGenerator(name = "id-generator",
-            strategy = "com.example.api.shared.IdGenerator")
-    @Column(name="id")
-    private String id;
+    @Column(name="id", columnDefinition = "char(36)")
+    private UUID id;
 
     @Column(name="name")
     private String name;
@@ -83,11 +81,11 @@ public class OrganizationDaoBean {
         this.country = country;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

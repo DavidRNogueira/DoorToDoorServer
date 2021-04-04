@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import javax.servlet.http.Cookie;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.UUID;
 
 @Path("/auth")
 public class AuthenticationResource {
@@ -29,6 +30,11 @@ public class AuthenticationResource {
         this.userService = userService;
     }
 
+    @GET
+    @Path("user/{id}")
+    public UserDto getUserById (@PathParam("id") final UUID id){
+        return userService.getUserById(id);
+    }
 
     @POST
     @Path("/login")
@@ -36,7 +42,7 @@ public class AuthenticationResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public UserDto login (@Valid final AuthenticationDto authenticationDto, final HttpServletRequest request, final HttpServletResponse response) {
         UserDto user = authenticationService.login(authenticationDto);
-        response.addCookie(buildCookie(user.getJwt(), request.getServerName()));
+//        response.addCookie(buildCookie(user.getJwt(), request.getServerName()));
         return user;
     }
 

@@ -3,11 +3,16 @@ package com.doortodoor.dao.bean;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-
+import java.util.UUID;
 
 @Entity
 @Table(name="user")
 public class UserDaoBean {
+
+    @Id
+    @Column(name="id", columnDefinition = "char(36)")
+    private UUID id;
+
     @Column(name="firstName")
     private String firstName;
 
@@ -41,13 +46,6 @@ public class UserDaoBean {
 
     @Column(name="role")
     private String role;
-
-    @Id
-    @GeneratedValue(generator = "id-generator")
-    @GenericGenerator(name = "id-generator",
-            strategy = "com.example.api.shared.IdGenerator")
-    @Column(name="id")
-    private String id;
 
     public String getFirstName() {
         return firstName;
@@ -97,11 +95,11 @@ public class UserDaoBean {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

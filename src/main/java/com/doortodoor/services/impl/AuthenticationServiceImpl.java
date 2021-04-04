@@ -25,30 +25,27 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         this.jwtService = jwtService;
     }
 
-    public void testInjection() {
-        System.out.println("Injection!");
-    }
-
     @Override
     public UserDto login(AuthenticationDto authenticationDto) {
-//        UserDaoBean userDaoBean = userDao.getUserByEmail(authenticationDto.getEmail());
-//
-//        if (userDaoBean == null) {
-//            throw new NotAuthorizedException("Login failed");
-//        }
-//
+        UserDaoBean userDaoBean = userDao.getUserByEmail(authenticationDto.getEmail());
+
+        if (userDaoBean == null) {
+            throw new NotAuthorizedException("Login failed");
+        }
+
 //        if (!doesPasswordMatch(userDaoBean.getPassword(), authenticationDto.getPassword())) {
 //            throw new NotAcceptableException();
 //        }
-//
-//        UserDto userDto = UserMapper.INSTANCE.userBeanToDto( userDaoBean );
-//
-//        String jwt = jwtService.createJWT(userDto.getEmail());
-//        userDto.setJwt(jwt);
-//
-//        return userDto;
-        UserDto userDto = new UserDto();
-        userDto.setFirstName("GET API FIXED");
+
+        if(!authenticationDto.getPassword().equals(userDaoBean.getPassword())) {
+            throw new NotAcceptableException();
+        }
+
+        UserDto userDto = UserMapper.INSTANCE.userBeanToDto( userDaoBean );
+
+        String jwt = jwtService.createJWT(userDto.getEmail());
+        userDto.setJwt(jwt);
+
         return userDto;
     }
 

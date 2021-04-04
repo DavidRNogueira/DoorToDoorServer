@@ -1,6 +1,7 @@
 package com.doortodoor.dao.impl;
 
 import com.doortodoor.dao.UserDao;
+import com.doortodoor.dao.bean.OrganizationDaoBean;
 import com.doortodoor.dao.bean.UserDaoBean;
 import org.hibernate.Session;
 
@@ -9,6 +10,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 
 @ApplicationScoped
 public class UserDaoImpl implements UserDao {
@@ -31,7 +33,18 @@ public class UserDaoImpl implements UserDao {
         for (Object o: response) {
             user = (UserDaoBean) o;
         }
+        System.out.println(user.getId());
 
-        return user;
+        return new UserDaoBean();
+    }
+
+    @Transactional
+    public UserDaoBean getUserById (final UUID id) {
+        Session session = entityManager.unwrap(Session.class);
+        OrganizationDaoBean organizationDaoBean = session.get(OrganizationDaoBean.class , id);
+
+        System.out.println(organizationDaoBean.getName());
+
+        return new UserDaoBean();
     }
 }
