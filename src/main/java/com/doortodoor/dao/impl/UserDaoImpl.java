@@ -43,7 +43,7 @@ public class UserDaoImpl implements UserDao {
         Session session = entityManager.unwrap(Session.class);
         OrganizationDaoBean organizationDaoBean = session.get(OrganizationDaoBean.class , id);
 
-        System.out.println(organizationDaoBean.getName());
+        System.out.println(organizationDaoBean == null || organizationDaoBean.getName() == null ? null : organizationDaoBean.getName());
 
         return new UserDaoBean();
     }

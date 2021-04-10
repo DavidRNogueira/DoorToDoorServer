@@ -34,6 +34,8 @@ public class UserServiceImpl implements UserService {
             return userDto;
         }
 
-        return UserMapper.INSTANCE.userBeanToDto( userDaoBean );
+        System.out.println("Not null");
+
+        return new UserDto();
     }
 }

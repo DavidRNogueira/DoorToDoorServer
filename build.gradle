@@ -13,11 +13,11 @@ dependencies {
     implementation 'io.quarkus:quarkus-resteasy-jackson'
     implementation 'io.quarkus:quarkus-resteasy'
     implementation 'io.quarkus:quarkus-arc'
-    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
     implementation 'io.quarkus:quarkus-hibernate-orm'
     implementation 'io.quarkus:quarkus-jdbc-mysql'
     implementation 'io.quarkus:quarkus-hibernate-validator'
     implementation 'io.quarkus:quarkus-jdbc-mysql'
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
 
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 

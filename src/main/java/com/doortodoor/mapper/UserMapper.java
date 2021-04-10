@@ -3,13 +3,11 @@ package com.doortodoor.mapper;
 import com.doortodoor.dao.bean.UserDaoBean;
 import com.doortodoor.dto.UserDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper
+@Mapper(config = QuarkusMappingConfig.class, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
-    UserMapper INSTANCE = Mappers.getMapper( UserMapper.class );
+    UserDto userDaoBeanToDto(UserDaoBean userDaoBean);
+    UserDaoBean userDtoToDaoBean(UserDto userDto);
 
-    @Mapping(source = "numberOfSeats", target = "seatCount")
-    UserDto userBeanToDto(UserDaoBean userDaoBean);
 }

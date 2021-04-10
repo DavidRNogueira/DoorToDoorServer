@@ -41,12 +41,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new NotAcceptableException();
         }
 
-        UserDto userDto = UserMapper.INSTANCE.userBeanToDto( userDaoBean );
-
-        String jwt = jwtService.createJWT(userDto.getEmail());
-        userDto.setJwt(jwt);
-
-        return userDto;
+        return new UserDto();
+//        UserDto userDto = userMapper.userDaoBeanToDto(userDaoBean);
+//
+//        String jwt = jwtService.createJWT(userDto.getEmail());
+//        userDto.setJwt(jwt);
+//
+//        return userDto;
     }
 
     private boolean doesPasswordMatch (final String passwordFromDb, final String passwordAttempt) {
