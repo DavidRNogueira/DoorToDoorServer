@@ -1,5 +1,6 @@
 package com.doortodoor.dao;
 
+import com.doortodoor.dao.bean.OrganizationDaoBean;
 import com.doortodoor.dao.bean.UserDaoBean;
 
 import java.util.UUID;

@@ -41,6 +41,10 @@ java {
 compileJava {
     options.encoding = 'UTF-8'
     options.compilerArgs << '-parameters'
+
+    options.annotationProcessorPath = configurations.annotationProcessor
+//     if you need to configure mapstruct component model
+    options.compilerArgs << "-Amapstruct.defaultComponentModel=spring"
 }
 
 compileTestJava {

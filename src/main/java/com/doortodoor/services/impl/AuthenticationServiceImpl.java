@@ -18,11 +18,13 @@ import javax.ws.rs.NotAuthorizedException;
 public class AuthenticationServiceImpl implements AuthenticationService {
     UserDao userDao;
     JwtService jwtService;
+    UserMapper userMapper;
 
     @Inject
-    public AuthenticationServiceImpl (final UserDao userDao, final JwtService jwtService) {
+    public AuthenticationServiceImpl (final UserDao userDao, final JwtService jwtService, final UserMapper userMapper) {
         this.userDao = userDao;
         this.jwtService = jwtService;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -41,13 +43,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new NotAcceptableException();
         }
 
-        return new UserDto();
-//        UserDto userDto = userMapper.userDaoBeanToDto(userDaoBean);
-//
-//        String jwt = jwtService.createJWT(userDto.getEmail());
-//        userDto.setJwt(jwt);
-//
-//        return userDto;
+        UserDto userDto = userMapper.userDaoBeanToDto(userDaoBean);
+
+        String jwt = jwtService.createJWT(userDto.getEmail());
+        userDto.setJwt(jwt);
+
+        return userDto;
     }
 
     private boolean doesPasswordMatch (final String passwordFromDb, final String passwordAttempt) {

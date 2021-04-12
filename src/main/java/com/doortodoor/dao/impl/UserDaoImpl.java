@@ -33,18 +33,12 @@ public class UserDaoImpl implements UserDao {
         for (Object o: response) {
             user = (UserDaoBean) o;
         }
-        System.out.println(user.getId());
-
-        return new UserDaoBean();
+        return user;
     }
 
     @Transactional
     public UserDaoBean getUserById (final UUID id) {
         Session session = entityManager.unwrap(Session.class);
-        OrganizationDaoBean organizationDaoBean = session.get(OrganizationDaoBean.class , id);
-
-        System.out.println(organizationDaoBean == null || organizationDaoBean.getName() == null ? null : organizationDaoBean.getName());
-
-        return new UserDaoBean();
+        return session.get(UserDaoBean.class , id);
     }
 }

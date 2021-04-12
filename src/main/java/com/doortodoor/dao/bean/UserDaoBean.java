@@ -1,6 +1,7 @@
 package com.doortodoor.dao.bean;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -9,8 +10,10 @@ import java.util.UUID;
 @Table(name="user")
 public class UserDaoBean {
 
+    @Type(type = "uuid-char")
     @Id
-    @Column(name="id", columnDefinition = "char(36)")
+    @GeneratedValue
+    @Column(name="id")
     private UUID id;
 
     @Column(name="firstName")
@@ -37,9 +40,8 @@ public class UserDaoBean {
     @Column(name="country")
     private String country;
 
-    @ManyToOne
     @JoinColumn(name="fkOrganization")
-    private OrganizationDaoBean organization;
+    private UUID organization;
 
     @Column(name="phone_number")
     private String phoneNumber;
@@ -135,11 +137,11 @@ public class UserDaoBean {
         this.state = state;
     }
 
-    public OrganizationDaoBean getOrganization() {
+    public UUID getOrganization() {
         return organization;
     }
 
-    public void setOrganization(OrganizationDaoBean organization) {
+    public void setOrganization(UUID organization) {
         this.organization = organization;
     }
 }

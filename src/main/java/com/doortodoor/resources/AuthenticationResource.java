@@ -1,5 +1,6 @@
 package com.doortodoor.resources;
 
+import com.doortodoor.dao.bean.OrganizationDaoBean;
 import com.doortodoor.dto.AuthenticationDto;
 import com.doortodoor.dto.UserDto;
 import com.doortodoor.services.AuthenticationService;
@@ -16,6 +17,7 @@ import javax.servlet.http.Cookie;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.UUID;
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 @Path("/auth")
 public class AuthenticationResource {
@@ -31,23 +33,24 @@ public class AuthenticationResource {
     }
 
     @GET
-    @Path("user/{id}")
-    public UserDto getUserById (@PathParam("id") final UUID id){
-        return userService.getUserById(id);
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/user/{userId}")
+    public UserDto getUserById (@PathParam final String userId){
+        return userService.getUserById(UUID.fromString(userId));
     }
 
     @POST
-    @Path("/login")
+    @Path("login")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public UserDto login (@Valid final AuthenticationDto authenticationDto, final HttpServletRequest request, final HttpServletResponse response) {
         UserDto user = authenticationService.login(authenticationDto);
-//        response.addCookie(buildCookie(user.getJwt(), request.getServerName()));
+        response.addCookie(buildCookie(user.getJwt(), request.getServerName()));
         return user;
     }
 
     @POST
-    @Path("/logout")
+    @Path("logout")
     public void logout (final HttpServletRequest request, final HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
         System.out.println(cookies[0]);
@@ -61,7 +64,7 @@ public class AuthenticationResource {
     }
 
     @GET
-    @Path("/user-details")
+    @Path("user-details")
     public UserDto getUserDetails(final HttpServletRequest request) {
         String jwt = jwtService.findAuthJwt(request.getCookies());
         Claims jwtClaims = jwtService.decodeJWT(jwt);
@@ -75,7 +78,7 @@ public class AuthenticationResource {
     }
 
     @GET
-    @Path("/check")
+    @Path("check")
     @Produces(MediaType.APPLICATION_JSON)
     public boolean loginCheck(final HttpServletRequest request) {
         try {

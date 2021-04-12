@@ -1,6 +1,7 @@
 package com.doortodoor.dao.bean;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +15,8 @@ import java.util.UUID;
 public class OrganizationDaoBean {
 
     @Id
-    @Column(name="id", columnDefinition = "char(36)")
+    @Type(type = "uuid-char")
+    @Column(name="id")
     private UUID id;
 
     @Column(name="name")

@@ -1,22 +1,26 @@
 package com.doortodoor.services.impl;
 
 import com.doortodoor.dao.UserDao;
+import com.doortodoor.dao.bean.OrganizationDaoBean;
 import com.doortodoor.dao.bean.UserDaoBean;
 import com.doortodoor.dto.UserDto;
 import com.doortodoor.mapper.UserMapper;
 import com.doortodoor.services.UserService;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.NotFoundException;
 import java.util.UUID;
 
 @ApplicationScoped
 public class UserServiceImpl implements UserService {
 
     UserDao userDao;
+    UserMapper userMapper;
 
     @Inject
-    public UserServiceImpl (UserDao userDao){
+    public UserServiceImpl (final UserDao userDao, final UserMapper userMapper){
         this.userDao = userDao;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -25,17 +29,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public  UserDto getUserById(UUID id) {
+    public UserDto getUserById(UUID id) {
         UserDaoBean userDaoBean = userDao.getUserById(id);
 
         if (userDaoBean == null) {
-            UserDto userDto = new UserDto();
-            userDto.setFirstName("WHY");
-            return userDto;
+            throw new NotFoundException();
         }
 
-        System.out.println("Not null");
-
-        return new UserDto();
+        return userMapper.userDaoBeanToDto(userDaoBean);
     }
 }
