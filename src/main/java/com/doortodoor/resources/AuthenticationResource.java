@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.servlet.http.Cookie;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.UUID;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
@@ -35,17 +36,21 @@ public class AuthenticationResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/user/{userId}")
-    public UserDto getUserById (@PathParam final String userId){
-        return userService.getUserById(UUID.fromString(userId));
+    public UserDto getUserById (@PathParam final UUID userId){
+        return userService.getUserById(userId);
     }
 
     @POST
     @Path("login")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public UserDto login (@Valid final AuthenticationDto authenticationDto, final HttpServletRequest request, final HttpServletResponse response) {
+    public UserDto login (
+            @Valid final AuthenticationDto authenticationDto,
+            @Context final HttpServletRequest request, 
+            @Context final HttpServletResponse response) {
         UserDto user = authenticationService.login(authenticationDto);
-        response.addCookie(buildCookie(user.getJwt(), request.getServerName()));
+        Cookie cookie = buildCookie(user.getJwt(), request.getServerName());
+        response.addCookie(cookie);
         return user;
     }
 

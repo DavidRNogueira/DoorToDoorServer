@@ -18,6 +18,7 @@ dependencies {
     implementation 'io.quarkus:quarkus-hibernate-validator'
     implementation 'io.quarkus:quarkus-jdbc-mysql'
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    implementation group: 'io.quarkus', name: 'quarkus-undertow', version: '1.13.1.Final'
 
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 

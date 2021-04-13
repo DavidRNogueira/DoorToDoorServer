@@ -40,8 +40,9 @@ public class UserDaoBean {
     @Column(name="country")
     private String country;
 
-    @JoinColumn(name="fkOrganization")
-    private UUID organization;
+    @Type(type = "uuid-char")
+    @Column(name="fkOrganization")
+    private UUID organizationFk;
 
     @Column(name="phone_number")
     private String phoneNumber;
@@ -137,12 +138,12 @@ public class UserDaoBean {
         this.state = state;
     }
 
-    public UUID getOrganization() {
-        return organization;
+    public UUID getOrganizationFk() {
+        return organizationFk;
     }
 
-    public void setOrganization(UUID organization) {
-        this.organization = organization;
+    public void setOrganizationFk(UUID organizationFk) {
+        this.organizationFk = organizationFk;
     }
 }
 

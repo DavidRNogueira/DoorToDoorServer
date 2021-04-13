@@ -26,7 +26,7 @@ public class JwtServiceImpl implements JwtService {
         Date now = new Date(nowMillis);
 
         // sign key
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(System.getenv("JWT_KEY"));
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary("Test");
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         JwtBuilder builder = Jwts.builder().setId(email)

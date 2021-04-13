@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserById(UUID id) {
         UserDaoBean userDaoBean = userDao.getUserById(id);
-
+        System.out.println(userDaoBean.getEmail());
         if (userDaoBean == null) {
             throw new NotFoundException();
         }

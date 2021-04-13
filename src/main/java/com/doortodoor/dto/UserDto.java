@@ -13,7 +13,6 @@ public class UserDto {
     private UUID id;
     private String firstName;
     private String lastName;
-    private String orgUserName;
 
     @Email
     @Size(min=1)
@@ -21,7 +20,7 @@ public class UserDto {
 
     @NotNull
     private String phoneNumber;
-    private UUID organization;
+    private UUID organizationFk;
     private String password;
     private String role;
     @JsonIgnore
@@ -31,6 +30,7 @@ public class UserDto {
     private String city;
     private String state;
     private String country;
+    private OrganizationDto organization;
 
     public UserDto() {
     }
@@ -67,12 +67,12 @@ public class UserDto {
         this.jwt = jwt;
     }
 
-    public UUID getOrganization() {
-        return organization;
+    public UUID getOrganizationFk() {
+        return organizationFk;
     }
 
-    public void setOrganization(UUID organization) {
-        this.organization = organization;
+    public void setOrganizationFk(UUID organizationFk) {
+        this.organizationFk = organizationFk;
     }
 
     public String getPassword() {
@@ -97,14 +97,6 @@ public class UserDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getOrgUserName() {
-        return orgUserName;
-    }
-
-    public void setOrgUserName(String orgId) {
-        this.orgUserName = orgId;
     }
 
     public String getRole() {
@@ -145,6 +137,14 @@ public class UserDto {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public OrganizationDto getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(OrganizationDto organization) {
+        this.organization = organization;
     }
 }
 
