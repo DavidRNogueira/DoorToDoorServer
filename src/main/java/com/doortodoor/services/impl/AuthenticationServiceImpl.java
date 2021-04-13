@@ -57,7 +57,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new NotAcceptableException();
         }
 
-        userDaoBean.setPassword(null);
         UserDto userDto = userMapper.userDaoBeanToDto(userDaoBean);
 
         String jwt = jwtService.createJWT(userDto.getEmail());

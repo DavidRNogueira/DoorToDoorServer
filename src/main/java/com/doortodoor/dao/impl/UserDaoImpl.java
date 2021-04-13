@@ -41,4 +41,10 @@ public class UserDaoImpl implements UserDao {
         Session session = entityManager.unwrap(Session.class);
         return session.get(UserDaoBean.class , id);
     }
+
+    @Transactional
+    public UUID createUser (final UserDaoBean userDaoBean) {
+        Session session = entityManager.unwrap(Session.class);
+        return (UUID) session.save(userDaoBean);
+    }
 }

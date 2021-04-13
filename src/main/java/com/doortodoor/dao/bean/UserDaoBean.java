@@ -41,7 +41,7 @@ public class UserDaoBean {
     private String country;
 
     @Type(type = "uuid-char")
-    @Column(name="fkOrganization")
+    @Column(name="organizationFk")
     private UUID organizationFk;
 
     @Column(name="phone_number")

@@ -6,6 +6,8 @@ import com.doortodoor.dao.bean.UserDaoBean;
 import com.doortodoor.dto.UserDto;
 import com.doortodoor.mapper.UserMapper;
 import com.doortodoor.services.UserService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
@@ -31,11 +33,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserById(UUID id) {
         UserDaoBean userDaoBean = userDao.getUserById(id);
-        System.out.println(userDaoBean.getEmail());
+
         if (userDaoBean == null) {
             throw new NotFoundException();
         }
 
         return userMapper.userDaoBeanToDto(userDaoBean);
+    }
+
+    @Override
+    public UUID createUser (UserDto userDto) {
+        UserDaoBean userDaoBean = userMapper.userDtoToDaoBean(userDto);
+        userDaoBean.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
+        return userDao.createUser(userDaoBean);
     }
 }

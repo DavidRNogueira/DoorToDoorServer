@@ -33,20 +33,13 @@ public class AuthenticationResource {
         this.userService = userService;
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/user/{userId}")
-    public UserDto getUserById (@PathParam final UUID userId){
-        return userService.getUserById(userId);
-    }
-
     @POST
     @Path("login")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public UserDto login (
             @Valid final AuthenticationDto authenticationDto,
-            @Context final HttpServletRequest request, 
+            @Context final HttpServletRequest request,
             @Context final HttpServletResponse response) {
         UserDto user = authenticationService.login(authenticationDto);
         Cookie cookie = buildCookie(user.getJwt(), request.getServerName());

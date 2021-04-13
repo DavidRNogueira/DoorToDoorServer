@@ -8,4 +8,5 @@ import java.util.UUID;
 public interface UserService {
     UserDto getUserByEmail(String email);
     UserDto getUserById(UUID id);
+    UUID createUser(UserDto userDto);
 }
