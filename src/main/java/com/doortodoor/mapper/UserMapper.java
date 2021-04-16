@@ -11,7 +11,5 @@ public interface UserMapper {
 
     @Mapping(target = "password", ignore = true)
     UserDto userDaoBeanToDto(UserDaoBean userDaoBean);
-
     UserDaoBean userDtoToDaoBean(UserDto userDto);
-
 }
