@@ -19,9 +19,4 @@ public class OrgController {
     public OrganizationDto isOrgUserNameTaken (@PathVariable final String orgUserName) {
         return organizationService.isOrgUserNameAvailable(orgUserName);
     }
-
-    @GetMapping("/{id}")
-    public OrganizationDto get (@PathVariable final String id) {
-        return organizationService.getOrgById(id);
-    }
 }

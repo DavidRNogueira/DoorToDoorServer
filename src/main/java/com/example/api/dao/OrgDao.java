@@ -14,7 +14,6 @@ public interface OrgDao {
 
     void createOrg (OrganizationEntity organizationEntity);
     OrganizationEntity findOrgByOrgUserName (String orgUserName);
-    OrganizationEntity getOrgById (String id);
 
     void createNewLine(LineEntity lineEntity);
 }

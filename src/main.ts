@@ -30,6 +30,12 @@ app.get('/test', async (req, res) => {
   res.send(org);
 });
 
+app.get('/organizations/:id', async (req, res) => {
+  const org = await orgDaoImpl.getById(req.params.id);
+  if (!org) return res.sendStatus(404);
+  res.send(org);
+});
+
 app.post('/auth/login', async (req, res) => {
   // TODO: stronger typing on body.
   const user = userDaoImpl.getByLoginDetails(req.body.email, req.body.password);

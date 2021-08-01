@@ -81,12 +81,6 @@ public class OrgDaoImpl implements OrgDao {
     }
 
     @Transactional
-    public OrganizationEntity getOrgById (String id) {
-        Session session = entityManager.unwrap(Session.class);
-        return session.get(OrganizationEntity.class, id);
-    }
-
-    @Transactional
     public void createNewLine (LineEntity lineEntity) {
         Session session = entityManager.unwrap(Session.class);
         session.save(lineEntity);
