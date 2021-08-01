@@ -15,11 +15,6 @@ public class OrgController {
         this.organizationService = organizationService;
     }
 
-    @PostMapping
-    public void createOrg (@Valid @RequestBody final OrganizationDto organizationDto) {
-        organizationService.createOrg(organizationDto);
-    }
-
     @GetMapping("/{orgUserName}/username")
     public OrganizationDto isOrgUserNameTaken (@PathVariable final String orgUserName) {
         return organizationService.isOrgUserNameAvailable(orgUserName);

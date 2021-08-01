@@ -20,17 +20,6 @@ public class OrganizationServiceImpl implements OrganizationService {
         this.orgDao = orgDao;
     }
 
-    public void createOrg(OrganizationDto organizationDto) {
-        OrganizationEntity organizationEntity = new OrganizationEntity();
-        organizationEntity.setName(organizationDto.getName());
-        organizationEntity.setCity(organizationDto.getCity());
-        organizationEntity.setState(organizationDto.getState());
-        organizationEntity.setCountry(organizationDto.getCountry());
-        organizationEntity.setOrgUserName(organizationDto.getOrgUserName().toLowerCase());
-        organizationEntity.setPhoneNumber(organizationDto.getPhoneNumber());
-        orgDao.createOrg(organizationEntity);
-    }
-
     @Override
     public OrganizationDto isOrgUserNameAvailable(String orgUserName) {
         OrganizationEntity organizationEntity = orgDao.findOrgByOrgUserName(orgUserName.toLowerCase());

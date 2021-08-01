@@ -2,7 +2,7 @@ import express from 'express';
 import {getDynamoDb} from "./utils";
 import errorhandler from 'errorhandler';
 import bodyParser from 'body-parser';
-import {userDao} from "./dao";
+import {organizationDao, userDao} from "./dao";
 
 process.on('uncaughtException', (err) => {
   console.log('ERROR', err);
@@ -10,14 +10,24 @@ process.on('uncaughtException', (err) => {
 
 const { docClient } = getDynamoDb();
 const userDaoImpl = userDao(docClient);
+const orgDaoImpl = organizationDao(docClient);
 
 const app = express();
 app.use(errorhandler());
 app.use(bodyParser.json({ type: 'application/*+json' }));
 
 app.get('/test', async (req, res) => {
-  const u = await userDaoImpl.getByLoginDetails('tim@example.com', '123456');
-  res.send(u);
+  // const u = await userDaoImpl.getByLoginDetails('tim@example.com', '123456');
+  // res.send(u);
+
+  const org = await orgDaoImpl.create({
+    name: 'Baptist Church',
+    country: 'USA',
+    state: 'CA',
+    city: 'Bakersfield',
+    phoneNumber: '800-555-5555',
+  });
+  res.send(org);
 });
 
 app.post('/auth/login', async (req, res) => {
