@@ -1,0 +1,8 @@
+{
+  "realm": "door2door",
+  "auth-server-url": "http://172.25.0.4:8080/auth/",
+  "ssl-required": "external",
+  "resource": "webapp",
+  "public-client": true,
+  "confidential-port": 0
+}

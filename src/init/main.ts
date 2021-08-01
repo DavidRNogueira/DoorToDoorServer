@@ -1,7 +1,6 @@
 import {getDynamoDb} from "../utils";
 import * as user from '../dao/user';
 import * as organization from '../dao/organization';
-import bcrypt from 'bcrypt';
 
 const { dynamoDB, docClient } = getDynamoDb();
 
@@ -45,16 +44,4 @@ const { dynamoDB, docClient } = getDynamoDb();
     ],
     BillingMode: 'PAY_PER_REQUEST'
   });
-
-  // Test data
-  await docClient.put({
-    TableName: user.TableName,
-    Item: {
-      id: '123124235',
-      email: 'tim@example.com',
-      firstName: 'Tim',
-      lastName: 'Cooper',
-      password: await bcrypt.hash('123456', 10),
-    },
-  })
 })();
