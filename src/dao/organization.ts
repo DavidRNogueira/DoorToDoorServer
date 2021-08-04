@@ -1,12 +1,15 @@
-import {DynamoDBDocument} from "@aws-sdk/lib-dynamodb";
-import {Organization} from "../models";
-import { v4 as uuidv4 } from 'uuid';
+import { DynamoDBDocument } from "@aws-sdk/lib-dynamodb";
+import { Organization } from "../models";
+import { v4 as uuidv4 } from "uuid";
 
-export const TableName = 'organizations';
+export const TableName = "organizations";
 
-export type CreateOrganization = Pick<Organization, 'name' | 'city' | 'state' | 'country' | 'phoneNumber'>;
+export type CreateOrganization = Pick<
+  Organization,
+  "name" | "city" | "state" | "country" | "phoneNumber"
+>;
 
-export const organizationDao =  (client: DynamoDBDocument) => {
+export const organizationDao = (client: DynamoDBDocument) => {
   const getById = async (id: string): Promise<Organization | undefined> => {
     const obj = await client.get({
       TableName,
@@ -17,7 +20,9 @@ export const organizationDao =  (client: DynamoDBDocument) => {
     if (obj.Item) return obj.Item as Organization;
   };
 
-  const create = async (create: CreateOrganization): Promise<Organization> => {
+  const create = async (
+    create: CreateOrganization
+  ): Promise<Organization | undefined> => {
     // TODO: validation
     const id = uuidv4();
     await client.put({
@@ -32,11 +37,11 @@ export const organizationDao =  (client: DynamoDBDocument) => {
         salvations: 0,
       },
     });
-    return (await getById(id))!;
+    return getById(id);
   };
 
   return {
     getById,
-    create
+    create,
   };
 };
