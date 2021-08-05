@@ -4,7 +4,7 @@ import errorhandler from "errorhandler";
 import { organizationDao, userDao } from "./dao";
 import Keycloak from "keycloak-connect";
 import session from "express-session";
-// import { is } from "typescript-is";
+import { is } from "typescript-is";
 import { CreateUser } from "./models";
 
 process.on("uncaughtException", (err) => {
@@ -37,10 +37,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.post("/user", async (req, res) => {
-  // TODO: Get typescript-is to work
-  // if (is<CreateUser>(req.body)) {
-  //   res.sendStatus(500);
-  // }
+  if (!is<CreateUser>(req.body)) {
+     return res.sendStatus(400);
+  }
 
   try {
     const newUser = await userDaoImpl.create(req.body);
